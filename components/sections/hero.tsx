@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { Paperclip, ArrowUp, ChevronDown } from 'lucide-react';
+import { ImagePlus, ArrowUp, ChevronDown } from 'lucide-react';
 
 const models = [
   { id: 'claude-sonnet-3.5', name: 'Claude Sonnet 3.5', provider: 'Anthropic', selected: true },
@@ -15,7 +15,7 @@ const models = [
 ];
 
 export function Hero() {
-  const [prompt, setPrompt] = useState('You are an extremely knowledgeable fashion assistant...');
+  const [prompt, setPrompt] = useState('');
   const [selectedModels, setSelectedModels] = useState(models);
 
   const toggleModel = (modelId: string) => {
@@ -32,28 +32,24 @@ export function Hero() {
   const estimatedCost = selectedCount * 0.53; // Example calculation
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 pt-16">
-      <div className="max-w-4xl mx-auto text-center">
+    <section className="relative mt-[20vh] mb-20 flex items-center justify-center px-4 pt-16">
+      <div className="mx-auto text-center w-[75vw] max-w-[896px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            Get your prompts{' '}
-            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              right
-            </span>
-            .
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+            Get your prompts right.
           </h1>
           
-          <p className="text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
-            Test various different LLM's responses to the same prompt side-by-side
+          <p className="text-lg secondary-text mb-12 mx-auto">
+          Test up to 4 different LLM’s responses to the same prompt side-by-side within 30 seconds.
           </p>
         </motion.div>
 
         <motion.div
-          className="bg-slate-800/50 backdrop-blur-lg rounded-2xl border border-slate-700/50 p-6 mb-8"
+          className="surface-bg border rounded-[28px] mb-8 overflow-hidden w-full prompt-container"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -62,52 +58,41 @@ export function Hero() {
             <Textarea
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Enter your prompt here..."
-              className="min-h-[120px] bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400 text-lg resize-none pr-20"
+              placeholder="You are an extremely knowledgeable fashion assistant..."
+              className="min-h-[200px] bg-transparent border-none placeholder:text-slate-400 text-lg resize-none p-7 pr-[120px]"
             />
             
-            <div className="absolute top-4 right-4 flex items-center space-x-2">
+            <div className="absolute top-5 right-5 flex items-center space-x-2">
               <Button 
-                variant="ghost" 
                 size="sm"
-                className="text-slate-400 hover:text-white p-2"
               >
-                <Paperclip className="w-4 h-4" />
+                <ImagePlus className="w-3.5 h-3.5" />
+                Attach
               </Button>
-              <span className="text-sm text-slate-400">Attach</span>
             </div>
           </div>
 
-          <div className="flex items-center justify-between mt-6">
+          <div className="surface-hc-bg flex items-center justify-between mt-6 p-4">
             <div className="flex flex-wrap gap-2">
               {selectedModels.map((model) => (
-                <Badge
+                <Button
                   key={model.id}
-                  variant={model.selected ? "default" : "secondary"}
-                  className={`cursor-pointer transition-all ${
-                    model.selected 
-                      ? 'bg-slate-700 hover:bg-slate-600 text-white' 
-                      : 'bg-slate-600/50 hover:bg-slate-600 text-slate-300'
-                  }`}
+                  className="cursor-pointer transition-all"
                   onClick={() => toggleModel(model.id)}
                 >
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-cyan-400 mr-2" />
+                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-cyan-400" />
                   {model.name}
-                  <ChevronDown className="w-3 h-3 ml-1" />
-                </Badge>
+                  <ChevronDown className="w-3 h-3" />
+                </Button>
               ))}
             </div>
             
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-slate-400">
-                Estimated cost: <span className="text-white font-medium">${estimatedCost.toFixed(2)}</span>
-              </span>
-              
               <Button
                 size="sm"
-                className="bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600 rounded-full w-10 h-10 p-0"
+                className="bg-[#FFF] hover:opacity-80 rounded-full w-11 h-11 p-0"
               >
-                <ArrowUp className="w-4 h-4" />
+                <ArrowUp color='#000' className="w-4 h-4" />
               </Button>
             </div>
           </div>

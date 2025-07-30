@@ -2,10 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Fonts */
+@font-face {
+  font-family: 'Outfit-light';
+  src: url('/fonts/Outfit-Light.ttf') format('ttf'),
+       url('/fonts/Outfit-Light.woff') format('woff');
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Outfit-regular';
+  src: url('/fonts/Outfit-Regular.ttf') format('ttf'),
+       url('/fonts/Outfit-Regular.woff') format('woff');
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Outfit-extralight';
+  src: url('/fonts/Outfit-ExtraLight.ttf') format('ttf'),
+       url('/fonts/Outfit-ExtraLight.woff') format('woff');
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Value-serif';
+  src: url('/fonts/ValueSerif.woff2') format('woff2'),
+       url('/fonts/ValueSerif.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 15, 20, 25;
   --background-end-rgb: 0, 0, 0;
+  
+  /* Semantic Color Variables */
+  --surface-bg: #252525;
+  --action-bg: #373737;
+  --action-hc-bg: #FFF;
+  --border: #404040;
+  --text-primary: #FFF;
+  --text-secondary: #C2C2C2;
+  --surface-hc-bg: #1B1B1B;
+  --highlight: #433857;
+  --background: #1D1D1D;
 }
 
 @layer base {
@@ -35,11 +80,183 @@
 
 @layer base {
   * {
-    @apply border-border;
   }
+
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Value-serif', serif;
+  }
+
+  p, span, a, li, ul, ol, blockquote, cite, code, pre, small, strong, em, b, i, u, s, mark, del, ins, sub, sup, tt, var, dfn, abbr, acronym, q, cite, dfn, input, label, textarea, select, option, .badge {
+    font-family: 'Outfit-extralight', sans-serif;
+    color: var(--text-primary);
+  }
+
+  .button-primary {
+    font-family: 'Outfit-light', sans-serif;
+    background-color: var(--action-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 300rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    gap: 0.5rem;
+  }
+
+  .button-secondary {
+    font-family: 'Outfit-light', sans-serif;
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 300rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+
+  .secondary-text {
+    color: var(--text-secondary);
+  }
+
+  .surface-bg {
+    background-color: var(--surface-bg);
+  }
+
+  .surface-hc-bg {
+    background-color: var(--surface-hc-bg);
+  }
+
+  .action-bg {
+    background-color: var(--action-bg);
+  }
+
+  .action-hc-bg {
+    background-color: var(--action-hc-bg);
+  }
+
+  .highlight-bg {
+    background-color: var(--highlight);
+  }
+
+  .border {
+    border: 1px solid var(--border);
+  }
+
+  .prompt-container {
+    box-shadow: 0px 4px 14px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .logo-text {
+    font-family: 'Value-serif', serif;
+  }
+
+  .progressive-blur-bg {
+    -webkit-mask-image: linear-gradient(to top,black 10%,transparent 80%);
+    mask-image: linear-gradient(to top,black 10%,transparent 80%);
+  }
+
+  .gradient-blur {
+    position: fixed;
+    z-index: 5;
+    inset: 0 0 auto 0;
+    height: 15%;
+    pointer-events: none;
+  }
+  .gradient-blur > div,
+  .gradient-blur::before,
+  .gradient-blur::after {
+    position: absolute;
+    inset: 0;
+  }
+  .gradient-blur::before {
+    content: "";
+    z-index: 1;
+    backdrop-filter: blur(0.5px);
+    mask: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 12.5%,
+      rgba(0, 0, 0, 1) 25%,
+      rgba(0, 0, 0, 0) 37.5%
+    );
+  }
+  .gradient-blur > div:nth-of-type(1) {
+    z-index: 2;
+    backdrop-filter: blur(1px);
+    mask: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 12.5%,
+      rgba(0, 0, 0, 1) 25%,
+      rgba(0, 0, 0, 1) 37.5%,
+      rgba(0, 0, 0, 0) 50%
+    );
+  }
+  .gradient-blur > div:nth-of-type(2) {
+    z-index: 3;
+    backdrop-filter: blur(2px);
+    mask: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 25%,
+      rgba(0, 0, 0, 1) 37.5%,
+      rgba(0, 0, 0, 1) 50%,
+      rgba(0, 0, 0, 0) 62.5%
+    );
+  }
+  .gradient-blur > div:nth-of-type(3) {
+    z-index: 4;
+    backdrop-filter: blur(4px);
+    mask: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 37.5%,
+      rgba(0, 0, 0, 1) 50%,
+      rgba(0, 0, 0, 1) 62.5%,
+      rgba(0, 0, 0, 0) 75%
+    );
+  }
+  .gradient-blur > div:nth-of-type(4) {
+    z-index: 5;
+    backdrop-filter: blur(8px);
+    mask: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 1) 62.5%,
+      rgba(0, 0, 0, 1) 75%,
+      rgba(0, 0, 0, 0) 87.5%
+    );
+  }
+  .gradient-blur > div:nth-of-type(5) {
+    z-index: 6;
+    backdrop-filter: blur(16px);
+    mask: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 62.5%,
+      rgba(0, 0, 0, 1) 75%,
+      rgba(0, 0, 0, 1) 87.5%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+  .gradient-blur > div:nth-of-type(6) {
+    z-index: 7;
+    backdrop-filter: blur(32px);
+    mask: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 75%,
+      rgba(0, 0, 0, 1) 87.5%,
+      rgba(0, 0, 0, 1) 100%
+    );
+  }
+  .gradient-blur::after {
+    content: "";
+    z-index: 8;
+    backdrop-filter: blur(64px);
+    mask: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 87.5%,
+      rgba(0, 0, 0, 1) 100%
+    );
   }
 }
 
