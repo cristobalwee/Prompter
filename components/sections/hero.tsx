@@ -6,30 +6,52 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { ImagePlus, ArrowUp, ChevronDown } from 'lucide-react';
+import { ModelSelector } from '@/components/ui/model-selector';
+import { getAllModels, getModelById } from '@/lib/models';
+import Image from 'next/image';
 
-const models = [
-  { id: 'claude-sonnet-3.5', name: 'Claude Sonnet 3.5', provider: 'Anthropic', selected: true },
-  { id: 'claude-opus-4', name: 'Claude Opus 4', provider: 'Anthropic', selected: true },
-  { id: 'llama-3', name: 'LLaMA 3', provider: 'Meta', selected: true },
-  { id: 'o3-mini', name: 'O3 Mini', provider: 'OpenAI', selected: true },
-];
+const allModels = getAllModels();
+
+// Helper function to get provider logo
+const getProviderLogo = (provider: string) => {
+  const logoMap: Record<string, string> = {
+    'Anthropic': '/images/anthropic.png',
+    'OpenAI': '/images/openAI.png',
+    'Meta': '/images/meta.png',
+    'Google': '/images/google.png',
+  };
+  return logoMap[provider] || null;
+};
 
 export function Hero() {
   const [prompt, setPrompt] = useState('');
-  const [selectedModels, setSelectedModels] = useState(models);
+  const [modelSlots, setModelSlots] = useState([
+    { id: 1, modelId: 'claude-sonnet-3.5' },
+    { id: 2, modelId: 'claude-opus-4' },
+    { id: 3, modelId: 'llama-3-70b' },
+    { id: 4, modelId: 'gpt-4o' },
+  ]);
 
-  const toggleModel = (modelId: string) => {
-    setSelectedModels(prev => 
-      prev.map(model => 
-        model.id === modelId 
-          ? { ...model, selected: !model.selected }
-          : model
+  const setModelForSlot = (slotId: number, modelId: string | null) => {
+    setModelSlots(prev => 
+      prev.map(slot => 
+        slot.id === slotId 
+          ? { ...slot, modelId: modelId || '' }
+          : slot
       )
     );
   };
 
-  const selectedCount = selectedModels.filter(m => m.selected).length;
-  const estimatedCost = selectedCount * 0.53; // Example calculation
+  const clearSlot = (slotId: number) => {
+    setModelForSlot(slotId, null);
+  };
+
+  // Get all selected models across all slots
+  const allSelectedModels = modelSlots
+    .map(slot => getModelById(slot.modelId))
+    .filter((model): model is NonNullable<typeof model> => model !== null && model !== undefined);
+
+  const estimatedCost = modelSlots.length * 0.53; // Example calculation
 
   return (
     <section className="relative mt-[20vh] mb-20 flex items-center justify-center px-4 pt-16">
@@ -44,7 +66,7 @@ export function Hero() {
           </h1>
           
           <p className="text-lg secondary-text mb-12 mx-auto">
-          Test up to 4 different LLM’s responses to the same prompt side-by-side within 30 seconds.
+          Test up to 4 different LLM's responses to the same prompt side-by-side within 30 seconds.
           </p>
         </motion.div>
 
@@ -74,17 +96,39 @@ export function Hero() {
 
           <div className="surface-hc-bg flex items-center justify-between mt-6 p-4">
             <div className="flex flex-wrap gap-2">
-              {selectedModels.map((model) => (
-                <Button
-                  key={model.id}
-                  className="cursor-pointer transition-all"
-                  onClick={() => toggleModel(model.id)}
-                >
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-cyan-400" />
-                  {model.name}
-                  <ChevronDown className="w-3 h-3" />
-                </Button>
-              ))}
+              {modelSlots.map((slot) => {
+                const model = getModelById(slot.modelId);
+                const providerLogo = model ? getProviderLogo(model.provider) : null;
+                
+                return (
+                  <ModelSelector
+                    key={slot.id}
+                    models={allModels}
+                    selectedModels={model ? [model] : []}
+                    onModelToggle={(modelId) => setModelForSlot(slot.id, modelId)}
+                    allSelectedModels={allSelectedModels}
+                    currentSlotModelId={slot.modelId}
+                    clearSlot={() => clearSlot(slot.id)}
+                    trigger={
+                      <Button className={`${model ? 'button-primary' : 'button-secondary'} text-white dash-border px-1.5`}>
+                        {model && providerLogo ? (
+                          <Image
+                            src={providerLogo}
+                            alt={`${model.provider} logo`}
+                            width={16}
+                            height={16}
+                            className="w-6 h-6 object-contain"
+                          />
+                        ) : (
+                          <div className="w-2 h-2 ml-2 rounded-full bg-gradient-to-r from-purple-400 to-cyan-400" />
+                        )}
+                        {model?.name || 'Select Model'}
+                        <ChevronDown className="w-3 h-3 mr-1" />
+                      </Button>
+                    }
+                  />
+                );
+              })}
             </div>
             
             <div className="flex items-center space-x-4">

@@ -13,41 +13,43 @@ const plans = [
     description: 'Perfect for trying out the platform.',
     icon: Zap,
     features: [
-      'One free prompt to 4 models',
-      'Bring your own auth tokens',
-      'Access to basic models',
+      'One comparison across up to 4 models',
+      'Up to 500 tokens per comparison',
+      'Bring your own API tokens',
+      'Access to basic models'
     ],
     buttonText: 'Get started',
     buttonVariant: 'outline' as const,
   },
   {
     name: 'Starter pack',
-    price: '$10',
-    credits: '1000 credits',
+    price: '$20',
+    credits: '200,000 credits',
     description: 'For regular users and small teams.',
     icon: Crown,
     features: [
-      'Covers ~1000 tokens across 4 models',
-      'All premium models',
-      'Bring your own auth tokens',
-      'No recurring subscription',
+      '10-25 prompt comparisons across up to 4 models',
+      'Access to all models including GPT-4, Claude Opus, o1',
+      'Bring your own API tokens OR use our credits',
+      'No recurring subscription'
     ],
     buttonText: 'Get started',
     buttonVariant: 'default' as const,
   },
   {
-    name: 'Pro pack',
-    price: '$25',
-    credits: '3500 credits',
+    name: 'Power pack',
+    price: '$50',
+    credits: '500,000 credits',
     description: 'For power users and larger teams.',
     icon: Rocket,
     pro: true,
     features: [
-      'Covers ~3000 tokens across 4 models',
-      'All premium models',
-      'Bring your own auth tokens',
-      'No recurring subscription',
+      '40-100 prompt comparisons',
+      'Everything in Starter Pack',
+      '50% more credits per dollar',
       'Priority support',
+      'Export comparison results',
+      'No recurring subscription'
     ],
     buttonText: 'Get started',
     buttonVariant: 'default' as const,
@@ -89,7 +91,7 @@ export function PricingSection() {
                 <Card className="h-full hover:border-slate-600 transition-all duration-300 surface-hc-bg border relative flex flex-col">
                   {plan.pro && (
                     <Badge className="text-xs highlight-bg absolute top-4 right-4">
-                      Save 29%
+                      33% savings
                     </Badge>
                   )}
                   <CardHeader className="pb-5">
