@@ -11,10 +11,12 @@ const buttonVariants = cva(
       variant: {
         default: 'button-primary rounded-full',
         secondary: 'button-secondary rounded-full',
+        link: 'button-link text-white underline gap-1 hover:opacity-70 transition-opacity duration-200 focus-visible:ring-0 focus-visible:ring-offset-0',
         contrast: 'surface-hc-bg rounded-full text-black',
       },
       size: {
         default: 'px-4 py-1.5',
+        link: 'p-0',
         sm: 'px-3',
         lg: 'px-8',
         icon: 'w-10',

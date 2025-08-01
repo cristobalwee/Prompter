@@ -23,12 +23,12 @@ const plans = [
   },
   {
     name: 'Starter pack',
-    price: '$20',
-    credits: '200,000 credits',
+    price: '$5',
+    credits: '40,000 credits',
     description: 'For regular users and small teams.',
     icon: Crown,
     features: [
-      '10-25 prompt comparisons across up to 4 models',
+      'Get up to 400,000 credits',
       'Access to all models including GPT-4, Claude Opus, o1',
       'Bring your own API tokens OR use our credits',
       'No recurring subscription'

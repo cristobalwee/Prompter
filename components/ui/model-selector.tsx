@@ -96,7 +96,7 @@ export function ModelSelector({
       >
         <div>
           <div className="relative surface-hc-bg rounded-sm">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 secondary-text" />
             <Input
               placeholder="Search for a model"
               value={searchQuery}
@@ -116,7 +116,7 @@ export function ModelSelector({
                   const isSelected = currentSelectedModelId === model.id;
                   return (
                     <div key={model.id} className="relative group">
-                      <button
+                      <Button
                         onClick={() => {
                           onModelToggle(model.id);
                           setTimeout(() => {
@@ -124,14 +124,14 @@ export function ModelSelector({
                           }, 100);
                         }}
                         className={cn(
-                          "button-primary border py-1.5 text-left text-sm transition-colors",
+                          "button-primary text-left text-sm",
                           isSelected
                             ? "bg-white text-black pr-7"
                             : "text-white hover:bg-action-bg"
                         )}
                       >
                         {model.name}
-                      </button>
+                      </Button>
                       {isSelected && (
                         <button
                           onClick={(e) => {

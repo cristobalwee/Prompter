@@ -260,4 +260,55 @@ export const getSimplifiedModels = () => {
     name: model.name,
     provider: model.provider
   }));
+};
+
+// Use case data for the modal
+export interface UseCase {
+  id: string;
+  title: string;
+  description: string;  
+  modelIds: string[];
+}
+
+export const useCases: UseCase[] = [
+  {
+    id: 'creative-writing',
+    title: 'Creative Writing',
+    description: 'Story generation, poetry, tone/style shifts, brainstorming fiction',
+    modelIds: ['claude-opus-4', 'gpt-4-turbo', 'gemini-1.5-pro', 'llama-3-70b']
+  },
+  {
+    id: 'business',
+    title: 'Business & Productivity',
+    description: 'Summarizing, email drafting, tone adjustments, knowledge tasks',
+    modelIds: ['claude-sonnet-3.5', 'gpt-3.5-turbo', 'gemini-1.5-flash', 'llama-3-70b']
+  },
+  {
+    id: 'reasoning-logic',
+    title: 'Reasoning & Logic',
+    description: 'Planning, deduction, multi-step reasoning, decision support',
+    modelIds: ['claude-opus-4', 'gpt-4-turbo', 'gemini-1.5-pro', 'llama-3-70b']
+  },
+  {
+    id: 'general-advice',
+    title: 'Everyday Help',
+    description: 'Parenting, relationships, self-help, cooking, etc.',
+    modelIds: ['claude-sonnet-3.5', 'gpt-3.5-turbo', 'gemini-1.5-flash', 'llama-3-8b']
+  },
+  {
+    id: 'fashion-aesthetics',
+    title: 'Fashion & Aesthetics',
+    description: 'Outfit critique, interior design advice, style suggestions',
+    modelIds: ['claude-opus-4', 'gpt-4-turbo', 'gemini-1.5-pro', 'llama-3-70b']
+  },
+  {
+    id: 'coding-technical',
+    title: 'Programming',
+    description: 'Code generation, debugging, code explanation',
+    modelIds: ['gpt-4-turbo', 'claude-sonnet-3.5', 'gemini-1.5-pro', 'llama-3-70b']
+  }
+];
+
+export const getUseCaseById = (useCaseId: string): UseCase | undefined => {
+  return useCases.find(useCase => useCase.id === useCaseId);
 }; 
