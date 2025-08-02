@@ -284,6 +284,7 @@ export function Hero() {
             <div className="flex items-center">
               <Button
                 size="sm"
+                onClick={() => window.location.href = '/responses'}
                 className="bg-[#FFF] hover:opacity-60 hover:scale-105 rounded-full w-11 h-11 p-0 transition-all duration-300"
               >
                 <ArrowUp color='#000' className="w-4 h-4" />

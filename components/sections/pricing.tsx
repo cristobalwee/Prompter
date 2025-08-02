@@ -4,33 +4,18 @@ import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Check, Zap, Crown, Rocket } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
 
 const plans = [
-  {
-    name: 'Free',
-    price: '$0',
-    description: 'Perfect for trying out the platform.',
-    icon: Zap,
-    features: [
-      'One comparison across up to 4 models',
-      'Up to 500 tokens per comparison',
-      'Bring your own API tokens',
-      'Access to basic models'
-    ],
-    buttonText: 'Get started',
-    buttonVariant: 'outline' as const,
-  },
   {
     name: 'Starter pack',
     price: '$5',
     credits: '40,000 credits',
-    description: 'For regular users and small teams.',
-    icon: Crown,
+    description: 'Perfect for trying out the platform.',
     features: [
-      'Get up to 400,000 credits',
-      'Access to all models including GPT-4, Claude Opus, o1',
-      'Bring your own API tokens OR use our credits',
+      'Access to basic models',
+      'Up to 40 prompt comparisons',
+      'Bring your own API keys or use our credits',
       'No recurring subscription'
     ],
     buttonText: 'Get started',
@@ -38,16 +23,31 @@ const plans = [
   },
   {
     name: 'Power pack',
-    price: '$50',
-    credits: '500,000 credits',
-    description: 'For power users and larger teams.',
-    icon: Rocket,
-    pro: true,
+    price: '$25',
+    credits: '250,000 credits',
+    description: 'For regular users and small teams.',
+    discount: 25,
     features: [
-      '40-100 prompt comparisons',
-      'Everything in Starter Pack',
-      '50% more credits per dollar',
-      'Priority support',
+      'Access to all basic and premium models',
+      'Up to 100 prompt comparisons',
+      'Bring your own API keys or use our credits',
+      'Export comparison results',
+      'No recurring subscription'
+    ],
+    buttonText: 'Get started',
+    buttonVariant: 'default' as const,
+  },
+  {
+    name: 'Pro pack',
+    price: '$75',
+    credits: '1,000,000 credits',
+    description: 'For power users and larger teams.',
+    discount: 33,
+    features: [
+      'Access to all basic and premium models',
+      'Up to 300 prompt comparisons',
+      '66% more credits per dollar than in the Starter pack',
+      'Bring your own API keys or use our credits',
       'Export comparison results',
       'No recurring subscription'
     ],
@@ -59,26 +59,24 @@ const plans = [
 export function PricingSection() {
   return (
     <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 relative mb-24">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto flex flex-col gap-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true, amount: 0.4 }}
-          className="text-center mb-10"
+          className="text-center"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">
             Pricing
           </h2>
           <p className="text-lg secondary-text max-w-2xl mx-auto">
-            Bring your own LLM auth tokens or purchase credits as you go.
+            Bring your own API keys or purchase credits as you go.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {plans.map((plan, index) => {
-            const Icon = plan.icon;
-            
             return (
               <motion.div
                 key={plan.name + plan.price}
@@ -88,10 +86,10 @@ export function PricingSection() {
                 viewport={{ once: true, amount: 0.3 }}
                 className="relative"
               >                
-                <Card className="h-full hover:border-slate-600 transition-all duration-300 surface-hc-bg border relative flex flex-col">
-                  {plan.pro && (
+                <Card className="h-full hover:border-[#433857] transition-all duration-300 surface-hc-bg border relative flex flex-col">
+                  {plan.discount && (
                     <Badge className="text-xs highlight-bg absolute top-4 right-4">
-                      33% savings
+                      {plan.discount}% savings
                     </Badge>
                   )}
                   <CardHeader className="pb-5">
@@ -130,6 +128,17 @@ export function PricingSection() {
             );
           })}
         </div>
+        <motion.div className="flex items-center justify-center gap-4 bg-[#131313] mx-auto self-center rounded-full px-6 py-3">
+          <p className="secondary-text text-sm text-left">
+            Already have API keys? Connect them and test for free.
+          </p>
+          <Button 
+            variant="link" 
+            size="link"
+          >
+            Get started <ArrowRight className="w-4 h-4" />
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
