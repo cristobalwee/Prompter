@@ -216,12 +216,12 @@ export function Hero() {
                       </button>
                     </div>
                     <div className="text-xs text-gray-400 truncate max-w-[100px]">
-                      {file.name}
+                      <p className="text-white">{file.name}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              <hr className="my-4 h-px bg-[#404040] border-none" />
+              <hr className="mt-4 h-px bg-[#404040] border-none" />
             </div>
           )}
 
